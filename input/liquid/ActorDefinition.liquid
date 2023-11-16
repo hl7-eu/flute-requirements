@@ -1,0 +1,103 @@
+<div xmlns="http://www.w3.org/1999/xhtml">
+
+    <div style="display: inline-block;
+                background-color: #d9e0e7; 
+                padding: 6px; 
+                margin: 4px; 
+                border: 1px solid #8da1b4;
+                border-radius: 5px; 
+                line-height: 60%;
+                width: 100%;"
+                >
+        <p style="margin-bottom: 0px">
+            {% if ActorDefinition.id %}<b>ID</b>: {{ActorDefinition.id}}<br/>{% endif %}
+            {% if ActorDefinition.identifier %}
+                <b>Identifier</b>: 
+                <ul>
+                    {% for identifier in ActorDefinition.identifier %}
+                        <li>
+                            {{identifier}}
+                        </li>
+                    {% endfor %}
+                </ul><br/>
+            {% endif %}
+
+            {% if ActorDefinition.experimental %}<b>Experimental</b>: {{ActorDefinition.experimental}}<br/>{% endif %}
+            {% if ActorDefinition.publisher %}<b>Publisher</b>: {{ActorDefinition.publisher}}<br/>{% endif %}
+            {% if ActorDefinition.contact %}
+                <table class="grid" style="width: 100%;">
+                    <tr style="background-color: #333f4c; color: #ffffff;">
+                        <th style="text-align: center;"><b>Contact Name</b></th>
+                        <th style="text-align: center;"><b>Contact Points</b></th>
+                    </tr>
+                    {% for contact in ActorDefinition.contact %}
+                         <tr style="background-color: #ffffff;">
+                            <td>{%if contact.name %} {{contact.name}} {% else %} N/A {% endif %} </td>
+                            <td>
+                                <ul>
+                                    {% for contactPoint in contact.telecom %}
+                                        <li>
+                                        {%if contactPoint.system = 'email' %} 
+                                            <a href="mailto:{{contactPoint.value}}">{{contactPoint.value}}</a>
+                                        {% elsif contactPoint.system = 'url' %}
+                                            <a href="{{contactPoint.value}}">{{contactPoint.value}}</a>
+                                        {% else %}
+                                            {{contactPoint.value}}
+                                        {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            
+            {% if ActorDefinition.description %}<b>Description</b>:<br/> {{ActorDefinition.description}}<br/>{% endif %}
+            
+            {% if ActorDefinition.jurisdiction %}
+                <b>Jurisdiction</b>:
+                {% for jurisdiction in ActorDefinition.jurisdiction %}
+                    {{jurisdiction.coding.display}} <span style="background: LightGoldenRodYellow; padding: .5rem; border: 1px solid khaki"> ({{jurisdiction.coding.system}}#{{jurisdiction.coding.code}})</span><br/>   
+                {% endfor %}
+                <br/><br/>
+            {% endif %}
+            
+            {% if ActorDefinition.purpose %}<b>Purpose</b>:<br/> {{ActorDefinition.purpose}}<br/>{% endif %}
+            
+            {% if ActorDefinition.copyrightLabel %}<b>Copyright Label</b>: {{ActorDefinition.copyrightLabel}}<br/>{% endif %}
+
+            {% if ActorDefinition.derivedFrom %}
+                <b>This actor inherits all the obligations of this actors</b>: 
+                <ul>
+                    {% for derivedFrom in ActorDefinition.derivedFrom %}
+                        <li>
+                            <a href="{{derivedFrom}}">{{derivedFrom}}</a> 
+                        </li>
+                    {% endfor %}
+                </ul>
+                <br/>
+            {% endif %}
+
+            {% if ActorDefinition.reference %}
+                <br/><br/>
+                <b>Reference to more information about the actor</b>: 
+                <ul>
+                    {% for reference in ActorDefinition.reference %}
+                        <li>
+                            {{reference}}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <br/>
+            {% endif %}
+            
+            {% if ActorDefinition.type %}<b>Type</b>: {{ActorDefinition.type}}<br/>{% endif %}
+            
+            {% if ActorDefinition.documentation %}<b>Documentation</b>: {{ActorDefinition.documentation}}<br/>{% endif %}
+            
+            {% if ActorDefinition.capabilities %}<b>Capabilities</b>: {{ActorDefinition.capabilities}}<br/>{% endif %}
+            
+        </p>
+    </div><br/>
+</div>

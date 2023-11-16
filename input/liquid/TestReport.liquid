@@ -1,0 +1,164 @@
+<div xmlns="http://www.w3.org/1999/xhtml">
+
+    <div style="display: inline-block;
+                background-color: #d9e0e7; 
+                padding: 6px; 
+                margin: 4px; 
+                border: 1px solid #8da1b4;
+                border-radius: 5px; 
+                line-height: 60%;
+                width: 100%;"
+                >
+        <p style="margin-bottom: 0px">
+            <b>Resource Type</b>: TestReport<br/>
+            <b>ID</b>: {{TestReport.id}}<br/>
+            <b>Name</b>: {{TestReport.name}}<br/>
+            <b>Status</b>: {{TestReport.status}}<br/>
+            <b>TestScript</b>: {{TestReport.testScript}}<br/>
+            <b>Result</b>: {{TestReport.result}}<br/>
+            {% if TestReport.score %}<b>Score</b>: {{TestReport.score}}<br/>{% endif %}
+            {% if TestReport.tester %}<b>Tester</b>: {{TestReport.tester}}<br/>{% endif %}
+            {% if TestReport.issued %}<b>Issued</b>: {{TestReport.issued}}<br/>{% endif %}
+            {% if TestReport.participant %}
+                <b>Participant</b>:
+                <table class="grid" style="width: 100%;">
+                    <tr style="background-color: #333f4c; color: #ffffff;">
+                        <th style="text-align: center;"><b>Type</b></th>
+                        <th style="text-align: center;"><b>URI</b></th>
+                        <th style="text-align: center;"><b>Display</b></th>
+                    </tr>
+                    {% for participant in TestReport.participant %}
+                        <tr style="background-color: #ffffff;">
+                            <td>{{participant.type}}</td>
+                            <td>{{participant.uri}}</td>
+                            <td>{% if participant.display %} {{ participant.display }} {% else %} N/A {% endif %}</td>                                
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </p>
+    </div><br/>
+
+    <div style="display: inline-block;
+                padding: 6px; 
+                margin: 4px; 
+                width: 100%;"
+                >
+        {% if TestReport.setup %}
+            <h3>Setup</h3>
+            <blockquote>
+                <table class="grid" style="width: 100%;">
+                    <tr style="background-color: #333f4c; color: #ffffff;">
+                        <th style="text-align: center;"><b>Action</b></th>
+                        <th style="text-align: center;"><b>ID</b></th>
+                        <th style="text-align: center;"><b>Result</b></th>
+                        <th style="text-align: center;"><b>Message</b></th>
+                        <th style="text-align: center;"><b>Details</b></th>
+                        <th style="text-align: center;"><b>Requirements</b></th>
+                    </tr>
+                    {% for action in TestReport.setup.action %}
+                        {% if action.operation %}
+                            <tr><td colspan="6" style="background-color: #dde2e3; color: #dde2e3;">New Action</td></tr>
+                            <tr>
+                                <td><b>Operation</b></td>
+                                <td>{% if action.operation.id %}{{ action.operation.id }}{% else %} N/A {% endif %}</td>
+                                <td>{{ action.operation.result }}</td>
+                                <td>{% if action.operation.message %}{{ action.operation.message }}{% else %} N/A {% endif %}</td>
+                                <td>{% if action.operation.detail %}{{ action.operation.detail }}{% else %} N/A {% endif %}</td>
+                                <td style="background-color: #F0F0F0;">N/A</td>
+                            </tr>
+                        {% elsif action.assert %}
+                            <tr>
+                                <td><b>Assert</b></td>
+                                <td>{% if action.assert.id %}{{ action.assert.id }}{% else %} N/A {% endif %}</td>
+                                <td>{{ action.assert.result }}</td>
+                                <td>{% if action.assert.message %}{{ action.assert.message }}{% else %} N/A {% endif %}</td>
+                                <td>{% if action.assert.detail %}{{ action.assert.detail }}{% else %} N/A {% endif %}</td>
+                                <td>
+                                    {% if action.assert.requirement %}
+                                        {% for requirement in action.operation.requirement %}
+                                            {% if requirement.link %}{{ requirement.link }}{% else %} N/A {% endif %}
+                                        {% endfor %}
+                                    {% else %} N/A 
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </blockquote> 
+        {% endif %}
+
+        {% if TestReport.test %}
+            <h3>Tests</h3>
+            {% for test in TestReport.test %}
+                <blockquote>
+                    <b>{{ test.name }}:</b><br/>
+                    {{ test.description }}<br/>
+                    <table class="grid" style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            <th style="text-align: center;"><b>Action</b></th>
+                            <th style="text-align: center;"><b>ID</b></th>
+                            <th style="text-align: center;"><b>Result</b></th>
+                            <th style="text-align: center;"><b>Message</b></th>
+                            <th style="text-align: center;"><b>Details</b></th>
+                            <th style="text-align: center;"><b>Requirements</b></th>
+                        </tr>
+                        {% for action in test.action %}
+                            {% if action.operation %} 
+                                <tr><td colspan="6" style="background-color: #dde2e3; color: #dde2e3;">New Action</td></tr>
+                                <tr>
+                                    <td><b>Operation</b></td>
+                                    <td>{% if action.operation.id %}{{ action.operation.id }}{% else %} N/A {% endif %}</td>
+                                    <td>{{ action.operation.result }}</td>
+                                    <td>{% if action.operation.message %}{{ action.operation.message }}{% else %} N/A {% endif %}</td>
+                                    <td>{% if action.operation.detail %}{{ action.operation.detail }}{% else %} N/A {% endif %}</td>
+                                    <td style="background-color: #F0F0F0;">N/A</td>
+                                </tr>
+                            {% elsif action.assert %}
+                                <tr>
+                                    <td><b>Assert</b></td>
+                                    <td>{% if action.assert.id %}{{ action.assert.id }}{% else %} N/A {% endif %}</td>
+                                    <td>{{ action.assert.result }}</td>
+                                    <td>{% if action.assert.message %}{{ action.assert.message }}{% else %} N/A {% endif %}</td>
+                                    <td>{% if action.assert.detail %}{{ action.assert.detail }}{% else %} N/A {% endif %}</td>
+                                    <td>
+                                        {% if action.assert.requirement %}
+                                            {% for requirement in action.operation.requirement %}
+                                                {% if requirement.link %}{{ requirement.link }}{% else %} N/A {% endif %}
+                                            {% endfor %}
+                                        {% else %} N/A 
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </blockquote>
+            {% endfor %}
+        {% endif %}
+
+        {% if TestReport.teardown %}
+            <h3>Teardown</h3>
+            <blockquote>
+                <b>Operations</b><br/>
+                <table class="grid" style="width: 100%;">
+                    <tr style="background-color: #333f4c; color: #ffffff;">
+                        <th style="text-align: center;"><b>ID</b></th>
+                        <th style="text-align: center;"><b>Result</b></th>
+                        <th style="text-align: center;"><b>Message</b></th>
+                        <th style="text-align: center;"><b>Details</b></th>
+                    </tr>
+                    {% for action in TestReport.teardown.action %}
+                        <tr>
+                            <td>{% if action.operation.id %}{{ action.operation.id }}{% else %} N/A {% endif %}</td>
+                            <td>{{ action.operation.result }}</td>
+                            <td>{% if action.operation.message %}{{ action.operation.message }}{% else %} N/A {% endif %}</td>
+                            <td>{% if action.operation.detail %}{{ action.operation.detail }}{% else %} N/A {% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </blockquote>
+        {% endif %}
+    </div><br/>
+</div>

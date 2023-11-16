@@ -1,0 +1,13 @@
+# 7 Conclusions
+
+The goal of the FLUTE project is to advance and scale up data-driven healthcare by developing novel methods for privacy-preserving cross-border utilization of data hubs. The technical innovations of the project will be integrated in a privacy-enforcing platform that will provide innovators with a provenly secure environment for federated healthcare AI solution development, testing and deployment, including the integration of real world health data from data hubs and the generation and utilization of synthetic data (categorical, numerical and images). In this document we have reported the initial, first stage needs and requirements of the potential users and stakeholders of FLUTE, to be finalized in *D1.1b: Final FLUTE stakeholder and user requirements*) in M18. 
+
+A threat model for multi-hub federated learning has been developed, and the necessary privacy enabling technologies were specified, taking into account, among other things, specific user requirements. Software specification for implementation of the PETs has been generated, that includes both functional and non-functional requirements. SMPC and TEEs are in focus.
+
+The functional and non-functional requirements were generated for the image processing and multi-modal synthetic data generation in FLUTE. The these were specified for tabular data, images, algorithms and evaluation/validation.
+
+Human interface and user-facing feature requirements were specified. These took into account the needs of the main users of the FLUTE solution – algorithm developers, as well as ne need to control privacy by allocating privacy budget to their queries. Synthetic data generation requirements focused on going beyond Generative Adversarial Networks (GANs) that generate synthetic data by converting real world data into 2-D objects, aiming to develop new methods that employ autoencoder structures, like Variational Auto-Encoders (VAEs) Diffusion models.
+
+The initial requirements for the cross-border prostate cancer pilot study were specified. In addition to the study design, these include a variety of data-related requirements such as data minimization, data processing agreements, requirements for AI models; as well as a variety of non-functional requirements such as authentication and authorization, use of data standards and cryptographic methods.
+
+Finally, standards contribution requirements were defined and identified based on workshops with a variety of stakeholders of the project. Among other things, conventions, standard usage, data model, privacy policy, FHIR architecture, AI modeling, and testing and specifications requirements were defined.

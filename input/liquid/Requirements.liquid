@@ -1,0 +1,176 @@
+<div xmlns="http://www.w3.org/1999/xhtml">
+
+    <div style="display: inline-block;
+                background-color: #d9e0e7; 
+                padding: 6px; 
+                margin: 4px; 
+                border: 1px solid #8da1b4;
+                border-radius: 5px; 
+                line-height: 60%;
+                width: 100%;"
+                >
+        <p style="margin-bottom: 0px">
+            {% if Requirements.id %}<b>ID</b>: {{Requirements.id}}<br/>{% endif %}
+            {% if Requirements.identifier %}
+                <b>Identifier</b>: 
+                <ul>
+                    {% for identifier in Requirements.identifier %}
+                        <li>
+                            {{identifier}}
+                        </li>
+                    {% endfor %}
+                </ul><br/>
+            {% endif %}
+
+            {% if Requirements.experimental %}<b>Experimental</b>: {{Requirements.experimental}}<br/>{% endif %}
+            {% if Requirements.publisher %}<b>Publisher</b>: {{Requirements.publisher}}<br/>{% endif %}
+            {% if Requirements.contact %}
+                <table class="grid" style="width: 100%;">
+                    <tr style="background-color: #333f4c; color: #ffffff;">
+                        <th style="text-align: center;"><b>Contact Name</b></th>
+                        <th style="text-align: center;"><b>Contact Points</b></th>
+                    </tr>
+                    {% for contact in Requirements.contact %}
+                         <tr style="background-color: #ffffff;">
+                            <td>{%if contact.name %} {{contact.name}} {% else %} N/A {% endif %} </td>
+                            <td>
+                                <ul>
+                                    {% for contactPoint in contact.telecom %}
+                                        <li>
+                                        {%if contactPoint.system = 'email' %} 
+                                            <a href="mailto:{{contactPoint.value}}">{{contactPoint.value}}</a>
+                                        {% elsif contactPoint.system = 'url' %}
+                                            <a href="{{contactPoint.value}}">{{contactPoint.value}}</a>
+                                        {% else %}
+                                            {{contactPoint.value}}
+                                        {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            
+            {% if Requirements.description %}<b>Description</b>:<br/> {{Requirements.description}}<br/>{% endif %}
+            
+            {% if Requirements.jurisdiction %}
+                <b>Jurisdiction</b>:
+                {% for jurisdiction in Requirements.jurisdiction %}
+                    {{jurisdiction.coding.display}} <span style="background: LightGoldenRodYellow; padding: .5rem; border: 1px solid khaki"> ({{jurisdiction.coding.system}}#{{jurisdiction.coding.code}})</span><br/>   
+                {% endfor %}
+                <br/><br/>
+            {% endif %}
+            
+            {% if Requirements.purpose %}<b>Purpose</b>:<br/> {{Requirements.purpose}}<br/>{% endif %}
+            
+            {% if Requirements.copyrightLabel %}<b>Copyright Label</b>: {{Requirements.copyrightLabel}}<br/>{% endif %}
+
+            {% if Requirements.derivedFrom %}
+                <b>Other set of Requirements this builds on</b>: 
+                <ul>
+                    {% for derivedFrom in Requirements.derivedFrom %}
+                        <li>
+                            {{derivedFrom}}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <br/>
+            {% endif %}
+
+            {% if Requirements.reference %}
+                <br/><br/>
+                <b>External artifact</b>: 
+                <ul>
+                    {% for reference in Requirements.reference %}
+                        <li>
+                            {{reference}}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <br/>
+            {% endif %}
+            
+            {% if Requirements.actor %}
+                <br/><br/>
+                <b>Actor for these requirements</b>: 
+                {% for actor in Requirements.actor %}
+                    <a href="{{actor}}"><code>{{actor}}</code></a>  
+                {% endfor %}
+            {% endif %}
+            <br/><br/>
+        </p>
+    </div><br/>
+
+    <div style="display: inline-block;
+        padding: 6px; 
+        margin: 4px; 
+        width: 100%;"
+        >
+        {% if Requirements.statement %}
+            <b>Statements</b>: 
+            {% for statement in Requirements.statement %}
+                <blockquote>
+                    <b>ID</b>: {{statement.key}}<br/>
+                    {% if statement.label %}<b>Label</b>: {{statement.label}}<br/> {% endif %}
+                    {% if statement.reference %}
+                        <b>References</b>:
+                        <ul>
+                            {% for reference in statement.reference %}
+                                <li>
+                                    {{reference}}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <br/>
+                    {% endif %}
+                    {% if statement.source %}
+                        <b>Sources</b>:
+                        <ul>
+                            {% for source in statement.source %}
+                                <li>
+                                    {{source.display}}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <table style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            {% if statement.satisfiedBy %}<th><b>Satisfied By</b></th> {% endif %}
+                            {% if statement.conformance %}<th><b>Conformance</b></th> {% endif %}
+                            <th><b>Requirement</b></th>
+                            {% if statement.derivedFrom %}<th><b>Derived From</b></th> {% endif %}
+                            {% if statement.parent %}<th><b>Requirement Parent</b></th> {% endif %}
+                            {% if statement.conditionality %}<th><b>Conditional</b></th> {% endif %}
+                        </tr>
+                        <tr style="background-color: #ffffff;">
+                            {% if statement.satisfiedBy %} 
+                                <td>
+                                    <ul>
+                                        {% for satisfiedBy in statement.satisfiedBy %}
+                                            <li>
+                                                {{satisfiedBy}}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            {% endif %}
+                            {% if statement.conformance %}
+                                <td>
+                                    {% for conformance in statement.conformance %}
+                                        <code>{{conformance}}</code>   
+                                    {% endfor %}
+                                </td>
+                            {% endif %}
+                            <td>{{statement.requirement}}</td>
+                            {% if statement.derivedFrom %}<td>{{statement.derivedFrom}}</td>{% endif %}
+                            {% if statement.parent %}<td>{{statement.parent}}</td>{% endif %}
+                            {% if statement.conditionality %}<td>{{statement.conditionality}}</td>{% endif %}
+                        </tr>
+                    </table>
+                </blockquote>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

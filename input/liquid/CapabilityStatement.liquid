@@ -1,0 +1,393 @@
+<div xmlns="http://www.w3.org/1999/xhtml">
+
+    <div style="display: inline-block;
+                background-color: #d9e0e7; 
+                padding: 6px; 
+                margin: 4px; 
+                border: 1px solid #8da1b4;
+                border-radius: 5px;
+                width: 100%;"
+                >
+        <p style="margin-bottom: 0px">
+            <b>Resource Type</b> : CapabilityStatement<br/>
+            <b>ID</b> : {{CapabilityStatement.id}}<br/>
+            <b>URL</b>: <code>{{CapabilityStatement.url}}</code><br/>
+            <b>Version</b>: {{CapabilityStatement.version}}<br/>
+            <b>Name</b>: {{CapabilityStatement.name}}<br/>
+            <b>Status</b>: {{CapabilityStatement.status}}<br/>
+            <b>Experimental</b>: {{CapabilityStatement.experimental}}<br/>
+            <b>Date</b>: {{CapabilityStatement.date}}<br/>
+            <b>FHIR Version</b>: {{CapabilityStatement.fhirVersion}}<br/>
+            <b>Description</b>: {{CapabilityStatement.description}}<br/>
+            {% if CapabilityStatement.purpose %} <b>Purpose</b>: {{CapabilityStatement.purpose}}<br/> {% endif %}
+            <b>Kind</b>: {{CapabilityStatement.kind}}<br/>
+            {% if CapabilityStatement.software %}
+                <b>Software covered</b>: {{CapabilityStatement.software.name}} {% if CapabilityStatement.software.version %} with version {{CapabilityStatement.software.version}}{% endif %}<br/>
+            {% endif %}
+            {% if CapabilityStatement.implementation %}
+                <b>Implementation</b>: {{CapabilityStatement.implementation.description}}<br/>
+                {% if CapabilityStatement.implementation.url %}   Base URL for the installation :{{CapabilityStatement.implementation.url}}{% endif %}<br/>
+                {% if CapabilityStatement.implementation.custodian %}   Organization managing the data :{{CapabilityStatement.implementation.custodian}}{% endif %}<br/>
+            {% endif %}
+
+            <b>Formats</b>: {% for format in CapabilityStatement.format %}<code>{{ format }}</code>  {% endfor %}<br/>
+            {% if CapabilityStatement.patchFormat %}
+                <b>Patch Formats</b>: {% for patchFormat in CapabilityStatement.patchFormat %}<code>{{ patchFormat }}</code>  {% endfor %}<br/>
+            {% endif %}
+            {% if CapabilityStatement.acceptLanguage %}
+                <b>Languages supported</b>: {% for patchFormat in CapabilityStatement.acceptLanguage %} {{ acceptLanguage }} | {% endfor %}<br/>
+            {% endif %}
+
+            {% if CapabilityStatement.instantiates %}
+                <b>Instantiates</b>:
+                    <ul>
+                    {% for instantiates in CapabilityStatement.instantiates %}<li>{{ instantiates }}</li>{% endfor %}
+                    </ul><br/>
+            {% endif %}
+            {% if CapabilityStatement.imports %}
+                <b>Imports</b>:
+                    <ul>
+                    {% for imports in CapabilityStatement.imports %}<li>{{ imports }}</li>{% endfor %}
+                    </ul><br/>
+            {% endif %}
+            {% if CapabilityStatement.ImplementationGuide %}
+                <b>Implementation guides supported</b>:
+                    <ul>
+                    {% for implementationGuide in CapabilityStatement.ImplementationGuide %}<li>{{ implementationGuide }}</li>{% endfor %}
+                    </ul><br/>
+            {% endif %}
+
+            <b>Publisher</b>: {{CapabilityStatement.publisher}}<br/><br/><br/>
+            {% if CapabilityStatement.jurisdiction %}<b>Jurisdiction</b>: 
+                {% for jurisdiction in CapabilityStatement.jurisdiction %}
+                    {{jurisdiction.display}} <span style="background: LightGoldenRodYellow; padding: .5rem; border: 1px solid khaki"> (<a
+                    href="http://terminology.hl7.org/5.0.0/CodeSystem-ISO3166Part1.html">ISO 3166-1 Codes for the representation of names of countries and their subdivisions — Part 1: Country code</a>#{{jurisdiction.code}})</span><br/>   
+                {% endfor %}
+                <br/><br/>
+            {% endif %}
+            {% if CapabilityStatement.contact %}
+                <table class="grid" style="width: 100%;">
+                    <tr style="background-color: #333f4c; color: #ffffff;">
+                        <th style="text-align: center;"><b>Contact Name</b></th>
+                        <th style="text-align: center;"><b>Contact Points</b></th>
+                    </tr>
+                    {% for contact in CapabilityStatement.contact %}
+                         <tr style="background-color: #ffffff;">
+                            <td>{%if contact.name %} {{contact.name}} {% else %} N/A {% endif %} </td>
+                            <td>
+                                <ul>
+                                    {% for contactPoint in contact.telecom %}
+                                        <li>
+                                        {%if contactPoint.system = 'email' %} 
+                                            <a href="mailto:{{contactPoint.value}}">{{contactPoint.value}}</a>
+                                        {% elsif contactPoint.system = 'url' %}
+                                            <a href="{{contactPoint.value}}">{{contactPoint.value}}</a>
+                                        {% else %}
+                                            {{contactPoint.value}}
+                                        {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </p>
+    </div><br/>
+    
+    <div style="display: inline-block;
+                padding: 6px; 
+                margin: 4px; 
+                width: 100%;"
+                >
+        {% if CapabilityStatement.rest.resource %}
+            <h3>RESTful Capabilities Summary</h3>
+            <table class="grid" style="width: 100%;">
+                <tr style="background-color: #333f4c; color: #ffffff;">
+                    <th style="text-align: center;"><b>Resource Type</b></th>
+                    <th style="text-align: center;"><b>Supported Profiles</b></th>
+                    <th style="text-align: center;"><b>Supported Search Parameters</b></th>
+                    <th style="text-align: center;"><b>Supported Operations</b></th>
+                </tr>
+                {% for resource in CapabilityStatement.rest.resource %} 
+                    <tr>
+                        <td><b>{{resource.type}}</b></td>
+                        <td>
+                            {% if resource.supportedProfile %}
+                                <ul>
+                                    {% for supportedProfile in resource.supportedProfile %}<li>{{supportedProfile}}<br/></li>{% endfor %}
+                                </ul>
+                            {% else %} N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if resource.searchParam %}{% for searchParam in resource.searchParam %}<code>{{ searchParam.name }}</code>  {% endfor %}{% else %} N/A {% endif %}
+                        </td>
+                        <td>
+                            {% if resource.operation %}{% for operation in resource.operation %}<code>{{ operation.name }}</code>  {% endfor %}{% else %} N/A {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table><br/>
+        {% endif %}
+
+        {% if CapabilityStatement.rest %}
+            <h3>RESTful Capabilities by Resource</h3>
+            {% for rest in CapabilityStatement.rest %}
+                <div style="display: inline-block;
+                            background-color: #d9e0e7; 
+                            padding: 6px; 
+                            margin: 4px; 
+                            border: 1px solid #8da1b4;
+                            border-radius: 5px;
+                            width: 100%;"
+                            >
+                    <p style="margin-bottom: 0px">
+                        <b>Mode</b>: {{rest.mode}}<br/>
+                        {% if rest.documentation %} <b>Documentation</b>: {{rest.documentation}}<br/> {% endif %}
+                        {% if rest.security %} 
+                            <b>Security Section</b><br/>
+                            {% for security in rest.security %}
+                                {% if security.cors %}<b>Cors</b>: {{security.cors}}<br/> {% endif %}
+                                {% if security.service %}<b>Services</b>: {% for service in security.service %} {{ service }} | {% endfor %}<br/> {% endif %}
+                                {% if security.description %}<b>Description</b>: {{security.description}}<br/> {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div><br/>
+                
+                {% for resource in rest.resource %}
+                    <button class="accordion"><b>{{resource.type}}</b></button>
+                    <div class="panel">
+                        <p>
+                            {% if resource.profile %}<b>Profile</b>: {{resource.profile}}<br/><br/>{% endif %}
+                            {% if resource.supportedProfile %}
+                                <b>Supported Profiles</b>:
+                                    <ul>
+                                        {% for supportedProfile in resource.supportedProfile %}<li>{{supportedProfile}}</li>{% endfor %}
+                                    </ul>
+                            {% endif %}
+                            {% if resource.documentation %}<b>Documentation</b>: {{resource.documentation}}<br/> {% endif %}
+                            
+                            {% if resource.interaction %}
+                                <b>Profile interaction</b>:
+                                <table class="grid" style="width: 100%;">
+                                    <tr style="background-color: #333f4c; color: #ffffff;">
+                                        <th style="text-align: center;"><b>Conformance</b></th>
+                                        <th style="text-align: center;"><b>Code</b></th>
+                                        <th style="text-align: center;"><b>Documentation</b></th>
+                                    </tr>
+                                    {% for interaction in resource.interaction %} 
+                                        <tr>
+                                            <td>{% if interaction.extension %}<b>{{interaction.extension.value}}</b> {% else %} N/A {% endif %}</td>
+                                            <td><code>{{interaction.code}}</code></td>
+                                            <td>{% if interaction.documentation %}{{interaction.documentation}} {% else %} N/A {% endif %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table><br/>
+                            {% endif %}
+
+                            {% if resource.searchParam %}
+                                <b>Search Parameters</b>:
+                                <table class="grid" style="width: 100%;">
+                                    <tr style="background-color: #333f4c; color: #ffffff;">
+                                        <th style="text-align: center;"><b>Name</b></th>
+                                        <th style="text-align: center;"><b>Definition</b></th>
+                                        <th style="text-align: center;"><b>Type</b></th>
+                                        <th style="text-align: center;"><b>Documentation</b></th>
+                                    </tr>
+                                    {% for searchParam in resource.searchParam %} 
+                                        <tr>
+                                            <td><b>{{searchParam.name}}</b></td>
+                                            <td>{% if searchParam.definition %}{{searchParam.definition}} {% else %} N/A {% endif %}</td>
+                                            <td><code>{{searchParam.type}}</code></td>
+                                            <td>{% if searchParam.documentation %}{{searchParam.documentation}} {% else %} N/A {% endif %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table><br/>
+                            {% endif %}
+
+                            {% if resource.operation %}
+                                <b>Operations</b>:
+                                <table class="grid" style="width: 100%;">
+                                    <tr style="background-color: #333f4c; color: #ffffff;">
+                                        <th style="text-align: center;"><b>Name</b></th>
+                                        <th style="text-align: center;"><b>Definition</b></th>
+                                        <th style="text-align: center;"><b>Documentation</b></th>
+                                    </tr>
+                                    {% for operation in resource.operation %} 
+                                        <tr>
+                                            <td><b>{{operation.name}}</b></td>
+                                            <td>{{operation.definition}}</td>
+                                            <td>{% if operation.documentation %}{{operation.documentation}} {% else %} N/A {% endif %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table><br/>
+                            {% endif %}
+
+                            {% if resource.versioning or resource.readHistory or resource.updateCreate or resource.conditionalCreate or resource.conditionalRead or resource.conditionalUpdate or resource.conditionalPatch or resource.conditionalDelete or resource.referencePolicy or resource.searchInclude or resource.searchRevInclude %}<b>More operations supported by the server</b>:
+                                {% if resource.versioning or resource.readHistory or resource.updateCreate or resource.conditionalCreate or resource.conditionalRead or resource.conditionalUpdate or resource.conditionalPatch or resource.conditionalDelete %}
+                                    <table class="grid" style="width: 100%;">
+                                        <tr style="background-color: #333f4c; color: #ffffff;">
+                                            {% if resource.versioning %}<th style="text-align: center;"><b>Versioning</b></th>{% endif %}
+                                            {% if resource.readHistory %}<th style="text-align: center;"><b>Read History</b></th>{% endif %}
+                                            {% if resource.updateCreate %}<th style="text-align: center;"><b>Update Create</b></th>{% endif %}
+                                            {% if resource.conditionalCreate %}<th style="text-align: center;"><b>Conditional Create</b></th>{% endif %}
+                                            {% if resource.conditionalRead %}<th style="text-align: center;"><b>Conditional Read</b></th>{% endif %}
+                                            {% if resource.conditionalUpdate %}<th style="text-align: center;"><b>Conditional Update</b></th>{% endif %}
+                                            {% if resource.conditionalPatch %}<th style="text-align: center;"><b>Conditional Patch</b></th>{% endif %}
+                                            {% if resource.conditionalDelete %}<th style="text-align: center;"><b>Conditional Delete</b></th>{% endif %}
+                                        </tr>
+                                        <tr>
+                                            {% if resource.versioning %}<td><code>{{resource.versioning}}</code></td>{% endif %}
+                                            {% if resource.readHistory %}<td><code>{{resource.readHistory}}</code></td>{% endif %}
+                                            {% if resource.updateCreate %}<td><code>{{resource.updateCreate}}</code></td>{% endif %}
+                                            {% if resource.conditionalCreate %}<td><code>{{resource.conditionalCreate}}</code></td>{% endif %}
+                                            {% if resource.conditionalRead %}<td><code>{{resource.conditionalRead}}</code></td>{% endif %}
+                                            {% if resource.conditionalUpdate %}<td><code>{{resource.conditionalUpdate}}</code></td>{% endif %}
+                                            {% if resource.conditionalPatch %}<td><code>{{resource.conditionalPatch}}</code></td>{% endif %}
+                                            {% if resource.conditionalDelete %}<td><code>{{resource.conditionalDelete}}</code></td>{% endif %}
+                                        </tr>
+                                    </table><br/>
+                                {% endif %}
+                            
+                                {% if resource.referencePolicy %}
+                                    <button class="accordion" ><b>Reference Policy</b></button>
+                                    <div class="panel">
+                                        <p><ul style="column-count: 3;">{% for referencePolicy in resource.referencePolicy %}<li><code>{{referencePolicy}}</code>  </li>{% endfor %}</ul></p>
+                                    </div>
+                                {% endif %}
+                                {% if resource.searchInclude %}
+                                    <button class="accordion"><b>Search Include</b></button>
+                                    <div class="panel">
+                                        <p><ul style="column-count: 3;">{% for searchInclude in resource.searchInclude %}<li><code>{{searchInclude}}</code>  </li>{% endfor %}</ul></p>
+                                    </div>
+                                {% endif %}
+                                {% if resource.searchRevInclude %}
+                                    <button class="accordion"><b>Search RevInclude</b></button>
+                                    <div class="panel">
+                                        <p><ul style="column-count: 3;">{% for searchRevInclude in resource.searchRevInclude %}<li><code>{{searchRevInclude}}</code>  </li>{% endfor %}</ul></p>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+
+                {% if rest.interaction %}
+                    <h3>RESTful interaction</h3>
+                    <table class="grid" style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            <th style="text-align: center;"><b>Conformance</b></th>
+                            <th style="text-align: center;"><b>Code</b></th>
+                            <th style="text-align: center;"><b>Documentation</b></th>
+                        </tr>
+                        {% for interaction in rest.interaction %} 
+                            <tr>
+                                <td>{% if interaction.extension %}<b>{{interaction.extension.value}}</b>{% else %} N/A {% endif %}</td>
+                                <td><code>{{interaction.code}}</code></td>
+                                <td>{% if interaction.documentation %}{{interaction.documentation}} {% else %} N/A {% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table><br/>
+                {% endif %}
+
+                {% if rest.searchParam %}
+                    <h3>RESTful Search Parameters</h3>
+                    <table class="grid" style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            <th style="text-align: center;"><b>Name</b></th>
+                            <th style="text-align: center;"><b>Definition</b></th>
+                            <th style="text-align: center;"><b>Type</b></th>
+                            <th style="text-align: center;"><b>Documentation</b></th>
+                        </tr>
+                        {% for searchParam in rest.searchParam %} 
+                            <tr>
+                                <td><b>{{searchParam.name}}</b></td>
+                                <td>{% if searchParam.definition %}{{searchParam.definition}} {% else %} N/A {% endif %}</td>
+                                <td><code>{{searchParam.type}}</code></td>
+                                <td>{% if searchParam.documentation %}{{searchParam.documentation}} {% else %} N/A {% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table><br/>
+                {% endif %}
+
+                {% if rest.operation %}
+                    <h3>RESTful Operations</h3>
+                    <table class="grid" style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            <th style="text-align: center;"><b>Name</b></th>
+                            <th style="text-align: center;"><b>Definition</b></th>
+                            <th style="text-align: center;"><b>Documentation</b></th>
+                        </tr>
+                        {% for operation in rest.operation %} 
+                            <tr>
+                                <td><b>{{operation.name}}</b></td>
+                                <td>{{operation.definition}}</td>
+                                <td>{% if operation.documentation %}{{operation.documentation}} {% else %} N/A {% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table><br/>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if CapabilityStatement.messaging %}
+            <h3>Supported Messages</h3>
+            {% for messaging in CapabilityStatement.messaging %}
+                {% if messaging.endpoint %} <b>Endpoints</b>:
+                    <table class="grid" style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            <th style="text-align: center;"><b>Protocol</b></th>
+                            <th style="text-align: center;"><b>Address</b></th>
+                        </tr>
+                        {% for endpoint in messaging.endpoint %} 
+                            <tr>
+                                <td>{{endpoint.protocol}}</td>
+                                <td>{{endpoint.address}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table><br/>
+                {% endif %}
+
+                {% if messaging.reliableCache %} <b>Reliable Message Cache Length</b>: {{messaging.reliableCache}}{% endif %}
+                {% if messaging.documentation %} <b>Documentation</b>: {{messaging.documentation}}{% endif %}
+
+                {% if messaging.supportedMessage %} 
+                    <b>Messages supported by this system</b>:
+                    <table class="grid" style="width: 100%;">
+                        <tr style="background-color: #333f4c; color: #ffffff;">
+                            <th style="text-align: center;"><b>Mode</b></th>
+                            <th style="text-align: center;"><b>Definition</b></th>
+                        </tr>
+                        {% for supportedMessage in messaging.supportedMessage %} 
+                            <tr>
+                                <td>{{supportedMessage.mode}}</td>
+                                <td>{{supportedMessage.definition}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table><br/>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if CapabilityStatement.document %}
+            <h3>Supported Documents</h3>
+            <table class="grid" style="width: 100%;">
+                <tr style="background-color: #333f4c; color: #ffffff;">
+                    <th style="text-align: center;"><b>Mode</b></th>
+                    <th style="text-align: center;"><b>Profile</b></th>
+                    <th style="text-align: center;"><b>Documentation</b></th>
+                </tr>
+                {% for document in CapabilityStatement.document %} 
+                    <tr>
+                        <td>{{document.mode}}</td>
+                        <td>{{document.profile}}</td>
+                        <td>{% if document.documentation %}{{document.documentation}} {% else %} N/A {% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table><br/>
+        {% endif %}
+
+    </div>
+</div>
