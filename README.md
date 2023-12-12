@@ -1,3 +1,2 @@
-# FLUTE Project
-
-FLUTE Project stakeholder and user requirements IG
+# requirements-flute
+FLUTE stakeholder and user requirements IG
