@@ -45,46 +45,45 @@ publisher:
 #
 pages:
   index.md:
-   title: Home
+    title: Home
   2.1Methodology.md:
-   title: Methodology
+    title: Methodology
   2.2ThreatModelAndAttacks.md:
-   title: Threat Model And Attacks
+    title: Threat Model And Attacks
   2.3UserRequirementsSpecification.md:
-   title: User Requirements Specification
+    title: User Requirements Specification
   2.4SoftwareRequirementsSpecification.md:
-   title: Software Requirements Specification
+    title: Software Requirements Specification
   2.5PETsRequirements.md:
-   title: PETs Requirements
+    title: PETs Requirements
   3.1Methodology.md:
-   title: Methodology
+    title: Methodology
   3.2MainCategories.md:
-   title: Main Cateagories
+    title: Main Cateagories
   3.3IMSDRequirements.md:
-   title: IMSD Requirements
+    title: IMSD Requirements
   4.1Methodology.md:
-   title: Methodology
+    title: Methodology
   4.2RequirementsOverview.md:
-   title: Requirements Overview
+    title: Requirements Overview
   4.3QueriesToBeSupported.md:
-   title: Queries To Be Supported
+    title: Queries To Be Supported
   4.4ImplicationsOnArchitecture.md:
-   title: Implications On Architecture
+    title: Implications On Architecture
   5.1Rationale.md:
-   title: Rationale
+    title: Rationale
   5.2MethodologyAndStudy.md:
-   title: Methodology And Study
+    title: Methodology And Study
   5.3PILRequirements.md:
-   title: PIL Requirements
+    title: PIL Requirements
   6.1ConventionAndStandards.md:
-   title: Convention And Standards
+    title: Convention And Standards
   6.2ModelAndPrivacy.md:
-   title: Model And Privacy
+    title: Model And Privacy
   6.3STDRequirements.md:
-   title: STD Requirements
+    title: STD Requirements
   7Conclusions.md:
-   title: Conclusions
-  
+    title: Conclusions
 
 #
 #
@@ -97,9 +96,11 @@ pages:
 # For parameters defined by the FHIR Tools IG see:
 # http://build.fhir.org/ig/FHIR/fhir-tools-ig/branches/master/CodeSystem-ig-parameters.html
 #
-# parameters:
-#   excludettl: true
-#   validation: [allow-any-extensions, no-broken-links]
+parameters:
+  path-binary:
+    - ./input/cql
+  special-url:
+    - https://www.isis.com/StructureDefinition/EXT-Datamart
 #
 # ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
 # │ The menu property will be used to generate the input/menu.xml file. The menu is represented    │
@@ -112,29 +113,29 @@ pages:
 menu:
   Home: index.html
   Artifacts: artifacts.html
-  URS and SRS: 
+  User and Software Requirements:
     Methodology: 2.1Methodology.html
     Threat Model And Attacks: 2.2ThreatModelAndAttacks.html
     User Requirements Specification: 2.3UserRequirementsSpecification.html
     Software Requirements Specification: 2.4SoftwareRequirementsSpecification.html
     PETs Requirements: 2.5PETsRequirements.html
-  HUF:
+  Human Interface:
     Methodology: 4.1Methodology.html
     Requirements Overview: 4.2RequirementsOverview.html
     Queries To Be Supported: 4.3QueriesToBeSupported.html
     Implications On Architecture: 4.4ImplicationsOnArchitecture.html
-  IMSD:
+  Image processing & Synthetic data:
     Methodology: 3.1Methodology.html
-    Main Cateagories: 3.2MainCategories.html
-    IMSD Requirements: 3.3IMSDRequirements.html
-  PIL:
+    Main Categories: 3.2MainCategories.html
+    Requirements: 3.3IMSDRequirements.html
+  Pilot Study:
     Rationale: 5.1Rationale.html
     Methodology And Study: 5.2MethodologyAndStudy.html
-    PIL Requirements: 5.3PILRequirements.html
-  STD:
+    Requirements: 5.3PILRequirements.html
+  Standards Contribution:
     Convention And Standards: 6.1ConventionAndStandards.html
     Model And Privacy: 6.2ModelAndPrivacy.html
-    STD Requirements: 6.3STDRequirements.html
+    Requirements: 6.3STDRequirements.html
   Conclusions: 7Conclusions.html
 
 # ╭───────────────────────────Less Common Implementation Guide Properties──────────────────────────╮

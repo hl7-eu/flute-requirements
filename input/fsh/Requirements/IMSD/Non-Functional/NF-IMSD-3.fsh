@@ -1,7 +1,7 @@
 Instance: NF-IMSD-3
 InstanceOf: Requirements
 Usage: #example
-* name = "NF-IMSD-3"
+* name = "NF_IMSD_3"
 * title = "NF-IMSD-3"
 * status = #draft
 * purpose = "Set of data and algorithmic requirements of both the developers and the users."

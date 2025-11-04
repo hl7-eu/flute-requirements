@@ -3,3 +3,29 @@
 # Add warning and/or information messages here after you've confirmed that they aren't really a problem
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
+
+# Suppress ResearchStudy link errors because ResearchStudy resource is not a Canonical resource and is supposed to be
+The link 'https://flute.com/ResearchStudy/RS-ResearchStudyFLUTE' for "https://flute.com/ResearchStudy/RS-ResearchStudyFLUTE" cannot be resolved
+Hyperlink 'https://flute.com/ResearchStudy/RS-ResearchStudyFLUTE' at 'div/p/a' for 'https://flute.com/ResearchStudy/RS-ResearchStudyFLUTE' does not resolve
+
+# No performer provided for Patient Observations testing resources
+Best Practice Recommendation: In general, all observations should have a performer
+
+# Use fictitious URLs
+No definition could be found for URL value 'https://flute.com/EvidenceVariable'
+
+# This extension is not used in any profile but HL7 Publisher rises this error anyway
+The extension http://hl7.org/fhir/StructureDefinition/structuredefinition-implements could not be found so is not allowed here
+No definition could be found for URL value 'http://hl7.org/fhir/StructureDefinition/structuredefinition-implements'
+
+# Should have examples for all profiles
+The Implementation Guide contains no examples for this profile
+
+# Name conflict, the CQL code remains correct
+An operand identifier reference is hiding another identifier of the same name.
+
+# CQL expression - functionally correct in our implementation despite validator limitations
+Result type List of choice<FHIR.dateTime,FHIR.Period,FHIR.string,FHIR.Age,FHIR.Range> of definition ageAtBiopsy is not supported; implementations may not be able to use the result of this expression
+Result type List of choice<FHIR.Quantity,FHIR.CodeableConcept,FHIR.string,FHIR.boolean,FHIR.integer,FHIR.Range,FHIR.Ratio,FHIR.SampledData,FHIR.time,FHIR.dateTime,FHIR.Period> of definition psa is not supported; implementations may not be able to use the result of this expression
+Result type List of choice<FHIR.Quantity,FHIR.CodeableConcept,FHIR.string,FHIR.boolean,FHIR.integer,FHIR.Range,FHIR.Ratio,FHIR.SampledData,FHIR.time,FHIR.dateTime,FHIR.Period> of definition prostateVolume is not supported; implementations may not be able to use the result of this expression
+Result type List of choice<FHIR.Quantity,FHIR.CodeableConcept,FHIR.string,FHIR.boolean,FHIR.integer,FHIR.Range,FHIR.Ratio,FHIR.SampledData,FHIR.time,FHIR.dateTime,FHIR.Period> of definition pirads is not supported; implementations may not be able to use the result of this expression

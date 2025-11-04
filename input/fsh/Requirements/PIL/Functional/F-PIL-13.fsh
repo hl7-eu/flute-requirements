@@ -1,7 +1,7 @@
 Instance: F-PIL-13
 InstanceOf: Requirements
 Usage: #example
-* name = "F-PIL-13"
+* name = "F_PIL_13"
 * title = "F-PIL-13"
 * status = #draft
 * purpose = "FLUTE specific requirements for FLUTE pilot studies and the platform are outlined based on discussions with stakeholders participating in the case studies, in particular representatives of technical partners participating in WP5 (Quibim) and medical researchers from the three participating hospitals CHUL, IRST and VHIR, which also act as data owners."

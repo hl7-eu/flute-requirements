@@ -1,7 +1,7 @@
 Instance: F-IMSD-15
 InstanceOf: Requirements
 Usage: #example
-* name = "F-IMSD-15"
+* name = "F_IMSD_15"
 * title = "F-IMSD-15"
 * status = #draft
 * purpose = "Set of data and algorithmic requirements of both the developers and the users."
