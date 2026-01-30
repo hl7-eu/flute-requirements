@@ -1,7 +1,7 @@
 Instance: F-HUF-6
 InstanceOf: Requirements
 Usage: #example
-* name = "F-HUF-6"
+* name = "F_HUF_6"
 * title = "F-HUF-6"
 * status = #draft
 * purpose = "Dimensions and Requirements collection for the Human interface and user-facing features."

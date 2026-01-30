@@ -1,7 +1,7 @@
 Instance: F-SRS-7
 InstanceOf: Requirements
 Usage: #example
-* name = "F-SRS-7"
+* name = "F_SRS_7"
 * title = "F-SRS-7"
 * status = #draft
 * purpose = "Defining the system security and privacy requirements that will be used as input for D1.2 and a technical description of the FLUTE components necessary to meet these requirements."

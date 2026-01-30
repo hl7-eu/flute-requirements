@@ -1,7 +1,7 @@
 Instance: F-STD-1
 InstanceOf: Requirements
 Usage: #example
-* name = "F-STD-1"
+* name = "F_STD_1"
 * title = "F-STD-1"
 * status = #draft
 * purpose = "Defining the Standards contribution Requirements for the FLUTE Platform."

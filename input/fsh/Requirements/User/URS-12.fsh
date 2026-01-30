@@ -1,7 +1,7 @@
 Instance: URS-12
 InstanceOf: Requirements
 Usage: #example
-* name = "URS-12"
+* name = "URS_12"
 * title = "URS-12"
 * status = #draft
 * purpose = "Defining the security and privacy requirements for users and stakeholders of the FLUTE platform, which are derived from the threat models and identified attacks within FLUTE."
